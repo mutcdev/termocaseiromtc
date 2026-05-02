@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termo Caseiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+    body {
+        margin: 0;
+      
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden; 
+        
+        background-color: rgb(136, 69, 156);
+        font-family: 'Montserrat', sans-serif;
+        
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between; 
+        padding: 10px 0;
+        box-sizing: border-box;
+    }
+
+    header h1 {
+        font-size: 33px; 
+        color: aliceblue;
+        margin: 5px 0;
+        text-align: center;
+    }
+
+   /* #botaodecomecar {
+        width: auto;
+        padding: 10px 60px;
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 9px;
+        margin-bottom: 5px;
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+    
+    }*/
+
+    #botaodecomecar{
+        display: block;       
+        margin: 2px auto;
+        width: 100%;
+        max-width: 600px;
+        font-weight: bold;
+
+    }
+
+    #botaodereiniciar{
+        display: block;       
+        margin: 2px auto;
+        width: 100%;
+        max-width: 600px;
+        font-weight: bold;
+
+    }
+
+   
+    .mensagem-container {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        animation: vibrar 0.5s infinite;
+    }
+
+    .mensagem {
+        font-size: 12px;
+        padding: 8px 15px;
+        background-color: rgb(188, 201, 9);
+        border-radius: 15px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .resposta {
+        font-size: 12px;
+        padding: 8px 15px;
+        background-color: rgb(188, 201, 9);
+        border-radius: 15px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .jogo {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex-grow: 1; 
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    .linha {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    input {
+        background-color: rgb(66, 31, 82);
+       
+        width: 12vw; 
+        height: 12vw;
+        max-width: 45px;
+        max-height: 45px;
+        
+        font-size: 20px;
+        color: aliceblue;
+        text-align: center;
+        font-weight: 900;
+        border: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgb(25, 7, 32); 
+        transition: border-bottom-width 0.2s ease, background-color 0.3s ease; 
+    }
+
+    input.ativo{
+        outline: none;
+        border-bottom: 6px solid rgb(25, 7, 32);
+
+    }
+
+    .teclado {
+        width: 100%;
+        max-width: 400px;
+        padding-bottom: 10px;
+    }
+
+    .linha-teclado {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+        margin-bottom: 5px;
+    }
+
+    button {
+   
+        min-width: 8vw;
+        max-width: 35px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: rgb(43, 43, 43);
+        color: aliceblue;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-family: inherit;
+        transition: background-color 0.3s ease;
+        
+    }
+
+ 
+    button:last-child, button[onclick="limpar()"] {
+        min-width: 15vw;
+        max-width: 70px;
+    }
+    @keyframes vibrar {
+    0% { transform: translate(0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+    100% { transform: translate(2px, 2px); }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+    <header>
+        <h1>TERMO CASEIRO</h1><br>
+        
+    </header>
+
+    <h2 id="palavrah2" style="display:none;"></h2>
+
+    <h2 id="palavrate" style="display:none;"></h2>
+    <button onclick="comecar()" id="botaodecomecar">COMEÇAR</button>
+    <button onclick="reiniciar()" id="botaodereiniciar" style="display:none;">REINICIAR</button>
+    
+        <div class="mensagem-container">
+    <p id="texto" style="display: none;" class="mensagem">Não consta na nossa Biblioteca</p>
+    <p id="resposta" style="display:none;" class="resposta"></p>
+        </div>
+        <div class="jogo">
+            <div class="linha">
+    <input type="text" maxlength="1" id="1letra1" >
+    <input type="text" maxlength="1" id="1letra2" >
+    <input type="text" maxlength="1" id="1letra3" >
+    <input type="text" maxlength="1" id="1letra4" >
+    <input type="text" maxlength="1" id="1letra5" >
+            </div>
+            <div class="linha">
+    <input type="text" maxlength="1" id="2letra1" >
+    <input type="text" maxlength="1" id="2letra2">
+    <input type="text" maxlength="1" id="2letra3" >
+    <input type="text" maxlength="1" id="2letra4" >
+    <input type="text" maxlength="1" id="2letra5" >
+            </div>
+            <div class="linha">
+    <input type="text" maxlength="1" id="3letra1" >
+    <input type="text" maxlength="1" id="3letra2" >
+    <input type="text" maxlength="1" id="3letra3" >
+    <input type="text" maxlength="1" id="3letra4" >
+    <input type="text" maxlength="1" id="3letra5" >
+            </div>
+            <div class="linha">
+    <input type="text" maxlength="1" id="4letra1" >
+    <input type="text" maxlength="1" id="4letra2" >
+    <input type="text" maxlength="1" id="4letra3" >
+    <input type="text" maxlength="1" id="4letra4" >
+    <input type="text" maxlength="1" id="4letra5" >
+            </div>
+            <div class="linha">
+    <input type="text" maxlength="1" id="5letra1" >
+    <input type="text" maxlength="1" id="5letra2" >
+    <input type="text" maxlength="1" id="5letra3" >
+    <input type="text" maxlength="1" id="5letra4" >
+    <input type="text" maxlength="1" id="5letra5" >
+            </div>
+            <div class="linha">
+    <input type="text" maxlength="1" id="6letra1" >
+    <input type="text" maxlength="1" id="6letra2" >
+    <input type="text" maxlength="1" id="6letra3" >
+    <input type="text" maxlength="1" id="6letra4" >
+    <input type="text" maxlength="1" id="6letra5" >
+            </div>
+        </div>
+
+    <div class="teclado">
+    
+        <div class="linha-teclado">
+            <button onclick="add('Q')">Q</button>
+            <button onclick="add('W')">W</button>
+            <button onclick="add('E')">E</button>
+            <button onclick="add('R')">R</button>
+            <button onclick="add('T')">T</button>
+            <button onclick="add('Y')">Y</button>
+            <button onclick="add('U')">U</button>
+            <button onclick="add('I')">I</button>
+            <button onclick="add('O')">O</button>
+            <button onclick="add('P')">P</button>
+        </div>
+   
+        <div class="linha-teclado">
+            <button onclick="add('A')">A</button>
+            <button onclick="add('S')">S</button>
+            <button onclick="add('D')">D</button>
+            <button onclick="add('F')">F</button>
+            <button onclick="add('G')">G</button>
+            <button onclick="add('H')">H</button>
+            <button onclick="add('J')">J</button>
+            <button onclick="add('K')">K</button>
+            <button onclick="add('L')">L</button>
+            <button onclick="limpar()" class="especial">⌫</button>
+        </div>
+    
+        <div class="linha-teclado">
+            <button onclick="add('Z')">Z</button>
+            <button onclick="add('X')">X</button>
+            <button onclick="add('C')">C</button>
+            <button onclick="add('V')">V</button>
+            <button onclick="add('B')">B</button>
+            <button onclick="add('N')">N</button>
+            <button onclick="add('M')">M</button>
+            <button onclick="enviar()" class="especial">ENTER</button>
+        </div>
+    </div>
+    <input id="invisivel" type="text" maxlength="5" style="display: none;">
+    <script>
+        document.querySelectorAll('.jogo input').forEach(el =>{
+            el.disabled=true;
+        })
+        document.querySelectorAll('.teclado button').forEach(el =>{
+            el.disabled=true;
+        })
+        
+        let listaDePalavras;
+        let listaDeValidar;
+
+        async function comecar(){
+          
+            document.getElementById('botaodecomecar').style.display='none'
+              for (let m =1; m <=5; m++){
+                document.getElementById(`1letra${m}`).disabled=false;
+            }
+            document.querySelectorAll('.teclado button').forEach(el =>{
+            el.disabled=false;
+            })
+        
+            const resposta= await fetch ('termooo-wordsv2.txt');
+            const listaSortear= await resposta.json();
+
+            const dicionario = await fetch ('palavras.txt')
+            const texto = await dicionario.text()
+            listaDeValidar = texto
+                .split('\n')
+                .map(p=> removerAcentos(p.trim().toLowerCase()))
+                .filter(p => p.length===5 && /^[a-z]+$/.test(p));
+
+            listaDePalavras=  
+                listaSortear.map(p => removerAcentos(p.toLowerCase()));
+                
+            sortearPalavra();
+            atualizarLinhaAtiva()
+
+console.log(listaDePalavras);
+        }
+        function removerAcentos(str){
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        }
+        let palavraSorteada;
+        async function sortearPalavra(){
+            const carregar=  listaDePalavras;
+                const posicao =Math.floor(Math.random() * carregar.length)
+                palavraSorteada=carregar[posicao];
+            document.getElementById('palavrah2').innerText=palavraSorteada;
+
+            return palavraSorteada;
+        }
+        let palavraTentativa;
+        let linhaAtual=1
+            let tentativa=document.getElementById('invisivel');//escreve e pega o valor escrito
+
+            tentativa.addEventListener('input', () =>{//serve para mandar o computador olhar o cod ate ele executar duas func
+                tentativa.value=tentativa.value//value para pegar oq ta escrito e nao o html em si
+                    .slice(0,5)
+                    .toUpperCase();//slice para separar as letras e touppercase para transformar em maiusculo
+
+            const letras = tentativa.value.split('');
+
+            for (let i = 1; i <= 5; i++){
+                document.getElementById(`${linhaAtual}letra${i}`).value=letras[i-1] ?? '';
+
+            if (tentativa.value.length === 5){
+                palavraTentativa=removerAcentos(tentativa.value.toLowerCase());
+            }
+                
+            } 
+            atualizarLinhaAtiva();
+            document.getElementById('palavrate').innerText=palavraTentativa;
+            });
+
+        function add(valor){
+            tentativa.value +=valor;
+            tentativa.dispatchEvent(new Event('input'));
+    
+        }
+
+        let palavra;
+        let letraIgual='';
+        let letraFora='';
+        let letraNao= "";
+        let respostaTentativa;
+
+        function enviar(){
+            if (tentativa.value.length < 5) return;
+            let palavraEscolhida=palavraSorteada.toLowerCase()
+            
+            if (listaDeValidar.includes(palavraTentativa) || listaDePalavras.includes(palavraTentativa)){
+               palavra=palavraTentativa; 
+               document.getElementById('texto').style.display="none"
+               respostaTentativa=true;
+            }
+
+            else{
+                document.getElementById('texto').style.display="block";
+                document.getElementById('invisivel').value="";
+                respostaTentativa=false;
+                palavraTentativa= '';
+            }
+            
+            if (respostaTentativa===true){
+                let letrasPala=palavra.split('')
+                
+                for (let l = 0; l < 5; l++){
+
+                    let el=document.getElementById(`${linhaAtual}letra${l+1}`);
+                    const botoes =document.querySelectorAll('.teclado button');
+                    const le =[...botoes].find(b => b.textContent === letrasPala[l].toUpperCase())
+
+                    
+
+                    if (letrasPala[l]===palavraEscolhida[l]){
+                        letraIgual+=letrasPala[l]
+                        el.disabled=false;
+                        el.style.backgroundColor='rgb(26, 184, 131)'
+                        if (palavraTentativa===palavraEscolhida){
+                            document.getElementById('botaodereiniciar').style.display="block";
+                            travarJogo();
+                        }
+                    }
+                    else if (letrasPala[l]!==palavraEscolhida[l] && palavraEscolhida.includes(letrasPala[l])){
+                        letraFora+=letrasPala[l] 
+                        el.disabled=false;
+                        el.style.backgroundColor='rgb(206, 155, 15)'
+                        
+                    }
+                    else if (letrasPala[l]!==palavraEscolhida[l]){
+                        el.disabled=false;
+                        el.style.backgroundColor='rgb(45, 6, 53)'
+                        le.disabled=true;
+                        le.style.backgroundColor='rgb(23, 23, 23)'
+                    }
+                    }
+
+                if(palavraTentativa && palavraTentativa.length === 5){
+                    linhaAtual++;
+                    atualizarLinhaAtiva()
+                    tentativa.value=''
+                    if(linhaAtual <= 6){
+                        for (let m =1; m <=5; m++){
+                            document.getElementById(`${linhaAtual}letra${m}`).disabled=false;
+                        }
+                    }
+
+                }
+                
+            }
+
+            if (linhaAtual > 6 && palavraTentativa !== palavraSorteada){
+                travarJogo()
+                 console.log('palavra sorteada:', palavraSorteada);
+                document.getElementById('texto').style.display='none';
+                document.getElementById('resposta').innerText='Fim de Jogo. Palavra: ' + palavraSorteada.toUpperCase();
+                document.getElementById('resposta').style.display='block';
+                document.getElementById('botaodereiniciar').style.display='block';
+                
+            }
+        }
+            function limpar(){
+                tentativa.value=tentativa.value.slice(0, -1);
+                tentativa.dispatchEvent(new Event('input'));
+            }
+            function travarJogo(){
+                document.querySelectorAll('.jogo input').forEach(el => {
+                    el.disabled=true;
+                })
+
+                document.querySelectorAll('.teclado button').forEach(el => {
+                    el.disabled=true;
+                })
+            }
+        
+        function reiniciar(){
+            palavraSorteada='';
+            document.getElementById('resposta').style.display='none';
+            document.getElementById('botaodereiniciar').style.display='none';
+            tentativa.value=""
+            linhaAtual=1
+            palavraTentativa='';
+            document.querySelectorAll('.jogo input').forEach(el =>{
+                el.value=''
+                el.style.backgroundColor= 'rgb(66, 31, 82)';
+                el.disabled=true;
+            })
+            comecar()
+        }
+
+        function atualizarLinhaAtiva() {
+            document.querySelectorAll('.jogo input').forEach(el => {
+            el.classList.remove('ativo');
+        });
+
+            const posicao = tentativa.value.length + 1; 
+            const inputAtual = document.getElementById(`${linhaAtual}letra${posicao}`);
+             if (inputAtual) inputAtual.classList.add('ativo');
+        }
+        
+        
+
+    </script>
+    
+    </div>
+</body>
+</html>
