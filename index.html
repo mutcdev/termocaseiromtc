@@ -131,6 +131,7 @@
         text-transform: uppercase;
         border-bottom: 2px solid rgb(25, 7, 32); 
         transition: border-bottom-width 0.2s ease, background-color 0.8s ease; 
+        pointer-events: none;
     }
 
     input.ativo{
@@ -402,7 +403,7 @@ console.log(listaDePalavras);
 
                     if (letrasPala[l]===palavraEscolhida[l]){
                         letraIgual+=letrasPala[l]
-                        el.disabled=false;
+                        
                         el.style.backgroundColor='rgb(26, 184, 131)'
                         if (palavraTentativa===palavraEscolhida){
                             document.getElementById('botaodereiniciar').style.display="block";
@@ -411,12 +412,12 @@ console.log(listaDePalavras);
                     }
                     else if (letrasPala[l]!==palavraEscolhida[l] && palavraEscolhida.includes(letrasPala[l])){
                         letraFora+=letrasPala[l] 
-                        el.disabled=false;
+                        
                         el.style.backgroundColor='rgb(206, 155, 15)'
                         
                     }
                     else if (letrasPala[l]!==palavraEscolhida[l]){
-                        el.disabled=false;
+                        
                         el.style.backgroundColor='rgb(45, 6, 53)'
                         le.disabled=true;
                         le.style.backgroundColor='rgb(23, 23, 23)'
