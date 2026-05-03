@@ -130,7 +130,7 @@
         border-radius: 5px;
         text-transform: uppercase;
         border-bottom: 2px solid rgb(25, 7, 32); 
-        transition: border-bottom-width 0.2s ease, background-color 0.3s ease; 
+        transition: border-bottom-width 0.2s ease, background-color 0.8s ease; 
     }
 
     input.ativo{
@@ -164,7 +164,8 @@
         cursor: pointer;
         font-size: 12px;
         font-family: inherit;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.8s ease;
+        font-weight: 700;
         
     }
 
@@ -201,46 +202,46 @@
         </div>
         <div class="jogo">
             <div class="linha">
-    <input type="text" maxlength="1" id="1letra1" >
-    <input type="text" maxlength="1" id="1letra2" >
-    <input type="text" maxlength="1" id="1letra3" >
-    <input type="text" maxlength="1" id="1letra4" >
-    <input type="text" maxlength="1" id="1letra5" >
+    <input type="text" maxlength="1" id="1letra1" disabled>
+    <input type="text" maxlength="1" id="1letra2" disabled>
+    <input type="text" maxlength="1" id="1letra3" disabled>
+    <input type="text" maxlength="1" id="1letra4" disabled>
+    <input type="text" maxlength="1" id="1letra5" disabled>
             </div>
             <div class="linha">
-    <input type="text" maxlength="1" id="2letra1" >
-    <input type="text" maxlength="1" id="2letra2">
-    <input type="text" maxlength="1" id="2letra3" >
-    <input type="text" maxlength="1" id="2letra4" >
-    <input type="text" maxlength="1" id="2letra5" >
+    <input type="text" maxlength="1" id="2letra1" disabled>
+    <input type="text" maxlength="1" id="2letra2" disabled>
+    <input type="text" maxlength="1" id="2letra3" disabled>
+    <input type="text" maxlength="1" id="2letra4" disabled>
+    <input type="text" maxlength="1" id="2letra5" disabled>
             </div>
             <div class="linha">
-    <input type="text" maxlength="1" id="3letra1" >
-    <input type="text" maxlength="1" id="3letra2" >
-    <input type="text" maxlength="1" id="3letra3" >
-    <input type="text" maxlength="1" id="3letra4" >
-    <input type="text" maxlength="1" id="3letra5" >
+    <input type="text" maxlength="1" id="3letra1" disabled>
+    <input type="text" maxlength="1" id="3letra2" disabled>
+    <input type="text" maxlength="1" id="3letra3" disabled>
+    <input type="text" maxlength="1" id="3letra4" disabled>
+    <input type="text" maxlength="1" id="3letra5" disabled>
             </div>
             <div class="linha">
-    <input type="text" maxlength="1" id="4letra1" >
-    <input type="text" maxlength="1" id="4letra2" >
-    <input type="text" maxlength="1" id="4letra3" >
-    <input type="text" maxlength="1" id="4letra4" >
-    <input type="text" maxlength="1" id="4letra5" >
+    <input type="text" maxlength="1" id="4letra1" disabled>
+    <input type="text" maxlength="1" id="4letra2" disabled>
+    <input type="text" maxlength="1" id="4letra3" disabled>
+    <input type="text" maxlength="1" id="4letra4" disabled>
+    <input type="text" maxlength="1" id="4letra5" disabled>
             </div>
             <div class="linha">
-    <input type="text" maxlength="1" id="5letra1" >
-    <input type="text" maxlength="1" id="5letra2" >
-    <input type="text" maxlength="1" id="5letra3" >
-    <input type="text" maxlength="1" id="5letra4" >
-    <input type="text" maxlength="1" id="5letra5" >
+    <input type="text" maxlength="1" id="5letra1" disabled>
+    <input type="text" maxlength="1" id="5letra2" disabled>
+    <input type="text" maxlength="1" id="5letra3" disabled>
+    <input type="text" maxlength="1" id="5letra4" disabled>
+    <input type="text" maxlength="1" id="5letra5" disabled>
             </div>
             <div class="linha">
-    <input type="text" maxlength="1" id="6letra1" >
-    <input type="text" maxlength="1" id="6letra2" >
-    <input type="text" maxlength="1" id="6letra3" >
-    <input type="text" maxlength="1" id="6letra4" >
-    <input type="text" maxlength="1" id="6letra5" >
+    <input type="text" maxlength="1" id="6letra1" disabled>
+    <input type="text" maxlength="1" id="6letra2" disabled>
+    <input type="text" maxlength="1" id="6letra3" disabled>
+    <input type="text" maxlength="1" id="6letra4" disabled>
+    <input type="text" maxlength="1" id="6letra5" disabled>
             </div>
         </div>
 
@@ -296,16 +297,17 @@
         let listaDeValidar;
 
         async function comecar(){
+
+            
           
             document.getElementById('botaodecomecar').style.display='none'
-              for (let m =1; m <=5; m++){
-                document.getElementById(`1letra${m}`).disabled=false;
-            }
+              
+            
             document.querySelectorAll('.teclado button').forEach(el =>{
             el.disabled=false;
             })
         
-            const resposta= await fetch ('termooo-wordsv2.txt');
+            const resposta= await fetch ('termo-lista-confiavel.txt');
             const listaSortear= await resposta.json();
 
             const dicionario = await fetch ('palavras.txt')
@@ -471,6 +473,13 @@ console.log(listaDePalavras);
                 el.style.backgroundColor= 'rgb(66, 31, 82)';
                 el.disabled=true;
             })
+            document.querySelectorAll('.teclado button').forEach(el =>{
+                el.style.backgroundColor= 'rgb(43, 43, 43)';
+                el.disabled=false;
+            })
+            letraIgual='';
+            letraFora='';
+            letraNao= '';
             comecar()
         }
 
